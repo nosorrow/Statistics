@@ -94,7 +94,6 @@ class Statistic
         sort($data);
         if (!is_float($floatval)) {
             $result = $data[$intvalindex];
-
         } else {
             if ($count > $intvalindex + 1) {
                 $result = $floatval * ($data[$intvalindex + 1] - $data[$intvalindex]) + $data[$intvalindex];
