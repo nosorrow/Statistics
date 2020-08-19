@@ -43,13 +43,11 @@ class Statistic
         $data = $this->data;
         sort($data);
         $n = count($data);
-
         if ($n % 2 === 0) {
-            return ($data[$n/2] + $data[$n/2 - 1])/2;
-
+            return ($data[$n / 2] + $data[$n / 2 - 1]) / 2;
         }
 
-        return $data[$n/2];
+        return $data[$n / 2];
     }
 
     /**
@@ -82,35 +80,29 @@ class Statistic
     public function percentile($percentile): float
     {
         $data = $this->data;
-
         if (0 < $percentile && $percentile < 1) {
             $p = $percentile;
-
-        } else if (1 < $percentile && $percentile <= 100) {
+        } elseif (1 < $percentile && $percentile <= 100) {
             $p = $percentile * .01;
-
         } else {
             return 0;
         }
-
         $count = count($data);
         $allindex = ($count - 1) * $p;
         $intvalindex = (int)$allindex;
         $floatval = $allindex - $intvalindex;
         sort($data);
-
         if (!is_float($floatval)) {
             $result = $data[$intvalindex];
 
         } else {
             if ($count > $intvalindex + 1) {
                 $result = $floatval * ($data[$intvalindex + 1] - $data[$intvalindex]) + $data[$intvalindex];
-
             } else {
-
                 $result = $data[$intvalindex];
             }
         }
+
         return $result;
     }
 
@@ -145,7 +137,7 @@ class Statistic
         $mean = array_sum($a) / $n;
         $carry = 0.0;
         foreach ($a as $val) {
-            $d = ((double) $val) - $mean;
+            $d = ((double)$val) - $mean;
             $carry += $d * $d;
         }
         if ($sample) {
