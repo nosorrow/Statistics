@@ -24,7 +24,7 @@ class Statistic
     }
 
     /**
-     * Median - The mid point value
+     * Median - The mid-point value
      * -----------------------------
      * The median value is the value in the middle, after you have sorted all the values:
      *
