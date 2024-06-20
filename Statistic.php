@@ -43,6 +43,7 @@ class Statistic
         $data = $this->data;
         sort($data);
         $n = count($data);
+
         if ($n % 2 === 0) {
             return ($data[$n / 2] + $data[$n / 2 - 1]) / 2;
         }
@@ -82,24 +83,28 @@ class Statistic
         $data = $this->data;
         if (0 < $percentile && $percentile < 1) {
             $p = $percentile;
+
         } elseif (1 < $percentile && $percentile <= 100) {
             $p = $percentile * .01;
+
         } else {
             return 0;
         }
+
         $count = count($data);
         $allindex = ($count - 1) * $p;
         $intvalindex = (int)$allindex;
         $floatval = $allindex - $intvalindex;
         sort($data);
+
         if (!is_float($floatval)) {
             $result = $data[$intvalindex];
+
+        } else if ($count > $intvalindex + 1) {
+            $result = $floatval * ($data[$intvalindex + 1] - $data[$intvalindex]) + $data[$intvalindex];
+
         } else {
-            if ($count > $intvalindex + 1) {
-                $result = $floatval * ($data[$intvalindex + 1] - $data[$intvalindex]) + $data[$intvalindex];
-            } else {
-                $result = $data[$intvalindex];
-            }
+            $result = $data[$intvalindex];
         }
 
         return $result;
@@ -125,20 +130,25 @@ class Statistic
     {
         $a = $this->data;
         $n = count($a);
+
         if ($n === 0) {
             trigger_error("The array has zero elements", E_USER_WARNING);
             return false;
         }
+
         if ($sample && $n === 1) {
             trigger_error("The array has only 1 element", E_USER_WARNING);
             return false;
         }
+
         $mean = array_sum($a) / $n;
         $carry = 0.0;
+
         foreach ($a as $val) {
             $d = ((double)$val) - $mean;
             $carry += $d * $d;
         }
+
         if ($sample) {
             --$n;
         }
